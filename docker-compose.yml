@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  todolist:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: todolist
+    container_name: todolist
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    depends_on:
+      - db_todolist
+    command: python manage.py runserver 0.0.0.0:8000
+
+  db_todolist:
+    image: postgres:latest
+    container_name: db_todolist
+    environment:
+      - POSTGRES_USER=todolist
+      - POSTGRES_PASSWORD=todolist
+      - POSTGRES_DB=todolist
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"

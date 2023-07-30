@@ -1,0 +1,1 @@
+from src.modules.infrastructure.user.entities.user_entity import User
